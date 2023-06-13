@@ -1,0 +1,100 @@
+############################################
+####### Rob Regex systematic reviews #######
+############################################
+
+#### Regex for systematic review mining
+#### Protocol registration (method section or entire manuscript)
+protocol_regex <- c("pre(|-)registered", "register", "Prospective Register of Systematic Reviews",
+                    "PROSPERO", "Open Science Framework", "(\\b|\\()OSF(\\b|\\()", "CRD(|-| )number",
+                    "CRD\\d{8,14}\\b", "protocol")
+#CAVE: exclude 'not pre(|-)registered'
+
+
+####Study goal (only in introduction and abstract)
+goal_regex <- c("(we|study) aimed at", "study goal", "study aim", "(we|this study) set out to",
+                "purpose of this study", "study objective(s|)", "study purpose",
+                "purpose of this systematic review")
+
+
+####In- and exclusion criteria (method section)
+inclusion_regex <- c("inclusion[ |-]criteria", "exclusion[ |-]criteria", "eligibility[ |-]criteria",
+                     "eligibility[ |-]criteria", "included the following", "excluded the following",
+                     "were excluded", "were included", "in(-| )and exclusion",
+                     "ex(-| )and inclusion", "inclusion and exclusion")
+
+
+####Database search (method section)
+database_regex <- c("Medline", "Pubmed", "Embase", "Cinahl", "EBSCO", "Scopus", "CENTRAL",
+                    "Web of Science", "Google Scholar", "Science Direct", "ScienceDirect",
+                    "OpenGrey", "Cochrane", "Web of Knowledge",
+                    "China National Knowledge Infrastructure", "CNKI", 
+                    "Oriental Medicine Advanced Searching Integrated System", "OASIS",
+                    "China Biology Medicine disc", "CBMdisc", "Wan Fang",
+                    "Chinese Clinical Trial Registry", "ClinicalTrials.gov", "BIOSIS",
+                    "SciELO", "SportDiscus", "EBSCO", "PsycINFO", "Ovid",
+                    "international scientific index", "Central Register of Controlled Clinical Trials",
+                    "ICTRP", "IEEE", "Internet Stroke Center", "PEDro", "Biological Abstracts",
+                    "Toxicology Data Network", "China Science and Technology Journal", "NLM Gateway",
+                    "SpringerLink", "CAB abstracts", "proquest natural science", "Open alex")
+
+#CAVE: at least 2 of these should be reported
+
+
+####Search date (method section)
+date_regex <- c("(\\b\\d{1,2}\\D{0,3})?\\b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|(Nov|Dec)(?:ember)?)\\D?(\\d{1,2}\\D?)?\\D?((19[7-9]\\d|20\\d{2})|\\d{2})",
+                "search date", "publication date", "search was executed on", "from inception")
+
+
+####Search string (method section)
+string_regex <- c("search string", "boolean operator", "search was conducted using",
+                  "using the following key(| |-)words", "search strategy", 
+                  "using the following MeSH", "relevant key(| |-)words", "relevant Mesh(-| )terms",
+                  "key(| |-)word", "emtree", "key search term", "search syntax",
+                  "pre(|-)defined search", "MeSH(|-)term")
+
+
+####Two reviewer (method section)
+induplicate_regex_one <- c("(two|2) author", "(two|2) reviewer", "(two|2) screener", "in duplicate", 
+                       "assessed independently", "screened independently", "(two|2) researcher",
+                       "resolved by consensus", "resolved by discussion", "dis(-|)agreement",
+                       "discussed among us", "random check", "(two|2) investigator",
+                       "(two|2) independent author", "(two|2) independent investigator",
+                       "(two|2) independent researcher", "paired reviewer", "second reviewer",
+                       "second authors", "second screener", "under the guidance", "double(|-)checked")
+
+induplicate_regex_two <- "([A-Z](\\.?)){2,3}(, | )(and |)([A-Z](\\.?)){2,3}"
+#CAVE: Ignore case for induplicate_regex_two = FALSE!
+
+
+####Risk of bias assessment (entire paper except references)
+rob_regex <- c("risk of bias", "Coleman methodology", "quality assessment", "appraise",
+               "Newcastle(-| )ottawa", "methodological quality", "bias assessment", "ROBINS",
+               "AMSTAR", "Joanna(-| )briggs", "JBI")
+                          
+
+####In accordance with guidelines (entire paper except references)
+guidelines_regex <- c("PRISMA", "Preferred Reporting Items for Systematic Reviews and Meta-Analyses",
+                      "CAMARADES", "CONSORT", "QUORUM")
+#CAVE: Ignore case = FALSE (except for "Preferred Reporting Items for Systematic Reviews and Meta-Analyses")
+
+####Meta-analysis (method section)
+metaanalysis_regex <- c("random(-| )effect", "fixed(-| )effect", "meta-regression",
+                        "DerSimonian", "Laird", "heterogeneity", "Higgins", "Hedges",
+                        "Thompson", "subgroup analysis", "publication bias", "SMD",
+                        "standardized mean", "p(-| )value")
+
+####Flowchart (entire paper except references)
+flowchart_regex <- c("flow( |-|)chart", "flow( |-|)diagram", "study selection procedure",
+                     "PRISMA( |-|)chart", "PRISMA( |-|)diagram")
+
+
+####Conflict of interest (entire paper including after the reference section)
+coi_regex <- c("nothing to disclose", "disclosure", "competing interest",
+               "conflict(-| )of(-| )interest", "financial conflict", "declaration(s|) of interest",
+               "financial support")
+
+
+####Protocol deviations (method section)
+deviation_regex <- c("protocol deviation", "protocol alteration", "deviate from the protocol",
+                     "protocol adjustment", "protocol change", "deviations from")
+
